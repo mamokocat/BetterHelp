@@ -1,12 +1,12 @@
 ﻿@model CourseWork.Models.Fund
 
 @{
-    ViewBag.Title = "Редактировать фонд";
+    ViewBag.Title = "Редактирование фонда -";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <div class="container mt-5">
-    <h2 class="text-center">Добавить фонд | <a href="/Admin/Index" style="text-decoration: none"><span class="btn btn-outline-danger">Отмена</span></a></h2>
+    <h2 class="text-center">Редактирование фонда | <a href="/Admin/Index" style="text-decoration: none"><span class="btn btn-outline-danger">Отмена</span></a></h2>
 
     <form action="/Admin/Edit" method="post" class="container" enctype="multipart/form-data">
         <input class="form-control" style="display: none;" name="id" value="@Model.FundId"/>
@@ -50,7 +50,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Добавить фонд" class="btn btn-success" />
+                <input type="submit" value="Сохранить изменения" class="btn btn-success" />
             </div>
         </div>
     </form>
