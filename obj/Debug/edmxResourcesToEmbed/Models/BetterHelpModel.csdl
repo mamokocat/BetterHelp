@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BetterHelpDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fund">
+    <Key>
+      <PropertyRef Name="FundId" />
+    </Key>
+    <Property Name="FundId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GoalAmount" Type="Int32" Nullable="false" />
+    <Property Name="CollectedAmount" Type="Int32" Nullable="false" />
+    <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Philanthropists" Relationship="Self.FK__Philanthr__FundI__2E1BDC42" FromRole="Funds" ToRole="Philanthropists" />
+    <Property Name="LogoName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Philanthropist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FundId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Fund" Relationship="Self.FK__Philanthr__FundI__2E1BDC42" FromRole="Philanthropists" ToRole="Funds" />
+  </EntityType>
+  <Association Name="FK__Philanthr__FundI__2E1BDC42">
+    <End Role="Funds" Type="Self.Fund" Multiplicity="1" />
+    <End Role="Philanthropists" Type="Self.Philanthropist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funds">
+        <PropertyRef Name="FundId" />
+      </Principal>
+      <Dependent Role="Philanthropists">
+        <PropertyRef Name="FundId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BetterHelpDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Funds" EntityType="Self.Fund" />
+    <EntitySet Name="Philanthropists" EntityType="Self.Philanthropist" />
+    <AssociationSet Name="FK__Philanthr__FundI__2E1BDC42" Association="Self.FK__Philanthr__FundI__2E1BDC42">
+      <End Role="Funds" EntitySet="Funds" />
+      <End Role="Philanthropists" EntitySet="Philanthropists" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

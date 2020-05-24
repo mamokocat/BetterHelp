@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+    <title>@ViewBag.Title - BetterHelp</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="logo.ico" type="/image/x-icon">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+    @Styles.Render("~/Content")
+
+
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/pogo-slider.min.css">
+    <link rel="stylesheet" href="/Content/style.css">
+    <link rel="stylesheet" href="/Content/responsive.css">
+    <link rel="stylesheet" href="/Content/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.Scripts/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="preloader pulse">
+            <img src="/images/loader-logo.png" alt="">
+        </div>
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+    <!-- Start header -->
+    <header class="top-header">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/Home/Index">
+                    <img src="/images/logo.png" alt="image">
+                    <h1 class="brand">BetterHelp</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd"
+                        aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                    <ul class="navbar-nav">
+                        <li><a class="nav-link" href="/Home/About">О нас</a></li>
+                        <li><a class="nav-link" href="/Home/Funds">Фонды</a></li>
+                        <li><a class="nav-link" href="/Home/Contact">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="footer-company-name">Все права защищены. &copy; 2020 <a href="#">BetterHelp</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <script>
+        var timeDisplay = document.getElementById("time");
+
+        function refreshTime() {
+            var dateString = new Date().toLocaleString("ru-RU", { timeZone: "Europe/Minsk" });
+            var formattedString = dateString.replace(", ", " - ").replace(/\//g, '.');
+            timeDisplay.innerHTML = formattedString;
+        }
+
+        setInterval(refreshTime, 1000);
+    </script>
+
+    <script>
+        function initMap() {
+            var uluru = { lat: 53.9, lng: 27.5621 };
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmvwbV3xyj4Ebnzyo3VnfvHVEc_i3UgXA&callback=initMap">
+    </script>
+
+    
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/popper.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    
+    <script src="/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="/Scripts/jquery.pogo-slider.min.js"></script>
+    <script src="/Scripts/slider-index.js"></script>
+    <script src="/Scripts/smoothscroll.js"></script>
+    <script src="/Scripts/form-validator.min.js"></script>
+    <script src="/Scripts/contact-form-script.js"></script>
+    <script src="/Scripts/custom.js"></script>
+    <script src="/Scripts/timerSnippet.js"></script>
+</body>
+
+</html>

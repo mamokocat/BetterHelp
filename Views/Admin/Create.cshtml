@@ -1,0 +1,56 @@
+﻿@model CourseWork.Models.Fund
+
+@{
+    ViewBag.Title = "Добавить фонд";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+    <div class="container mt-5">
+        <h2 class="text-center">Добавить фонд | <a href="/Admin/Index" style="text-decoration: none"><span class="btn btn-outline-danger">Отмена</span></a></h2>
+
+        <form action="/Admin/Create" method="post" class="container" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="control-label col-md-10" for="title">Название фонда</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="title" id="title" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-10" for="goalAmount">Цель фонда(необходимая сумма в рублях)</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="goalAmount" id="goalAmount" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-10" for="collectedAmount">Текущая собранная сумма(необязательно)</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="collectedAmount" id="collectedAmount" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-10" for="info">Информация о фонде</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="info" id="info" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-10" for="logo">Логотип фонда</label>
+                <div class="col-md-10">
+                    <input name="logo" type="file" class="form-control-file" id="logo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Добавить фонд" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Спасибо!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="text-center container mt-5">
+        <img src="~/images/logo.png"/>
+        <h2>Спасибо!</h2>
+        <h3>Ваша поддержка очень важна для нас ;)</h3>
+        <h4>Вы будете перенаправлены на главную страницу через несколько секунд</h4>
+    </div>
+
+    <style>
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+    </style>
+
+<script>
+    setTimeout(function () { window.location = "/Home/Index" }, 6000);
+</script>

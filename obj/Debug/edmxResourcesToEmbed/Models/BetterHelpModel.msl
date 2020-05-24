@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BetterHelpDbModelStoreContainer" CdmEntityContainer="BetterHelpDbEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="BetterHelpDbModel.Admin">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funds">
+      <EntityTypeMapping TypeName="BetterHelpDbModel.Fund">
+        <MappingFragment StoreEntitySet="Funds">
+          <ScalarProperty Name="LogoName" ColumnName="LogoName" />
+          <ScalarProperty Name="FundId" ColumnName="FundId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="GoalAmount" ColumnName="GoalAmount" />
+          <ScalarProperty Name="CollectedAmount" ColumnName="CollectedAmount" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Philanthropists">
+      <EntityTypeMapping TypeName="BetterHelpDbModel.Philanthropist">
+        <MappingFragment StoreEntitySet="Philanthropists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FundId" ColumnName="FundId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

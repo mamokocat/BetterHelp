@@ -1,0 +1,202 @@
+﻿@model IEnumerable<CourseWork.Models.Fund>
+
+@{
+    ViewBag.Title = "Фонды";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a href="/Home/Index">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Фонды</li>
+            </ol>
+        </nav>
+    </div>
+
+<h1 class="text-center" style="font-weight: bold">Фонды</h1>
+
+
+<div style="margin-bottom: 50px;">
+    @foreach (var item in Model)
+    {
+
+        var percentSuccess = Math.Round(Convert.ToDecimal(item.CollectedAmount * 100 / item.GoalAmount)).ToString();
+
+    <div class="container fund-box text-center">
+        <img class="fund-logo" src="~/images/@item.LogoName" />
+        <h2 class="text-center">@item.Title</h2>
+        <div class="text-center">
+            <div class="text-justify m-2">@item.Info</div>
+            <div>
+                <div class="progress text-center m-2">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                         aria-valuenow=@percentSuccess aria-valuemin="0" aria-valuemax="100" style="width:@percentSuccess%">
+                        @item.CollectedAmount / @item.GoalAmount р.
+                    </div>
+                </div>
+                @if (item.FundId == 3)
+                {
+                    <div class="counter" id="clockdiv">
+
+                        <div class="sq">
+                            <span>ОСТАЛОСЬ </span>
+                            <span class="days bord">1</span> <span class="smalltext">ДНЕЙ</span>
+                        </div>
+                        <div class="sq">
+                            <span class="hours bord">22</span> <span class="smalltext">ЧАСОВ</span>
+                        </div>
+                        <div class="sq">
+                            <span class="minutes bord">40</span> <span class="smalltext">МИНУТ</span>
+                        </div>
+                        <div class="sq">
+                            <span class="seconds bord">45</span> <span class="smalltext">СЕКУНД</span>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        @if (item.Philanthropists.Count() != 0)
+        {
+            <div class="container donators">
+                <div class="container text-center m-2">
+                    <h3>Топ-меценаты</h3>
+                    <table class="table table-borderless">
+
+                        @{
+                            var donsOrderedByAmount = item.Philanthropists.OrderByDescending(x => x.Amount);
+
+                            var donaters = donsOrderedByAmount.ToList();
+
+                            <tr>
+                                <td>
+                                    <img class="medal-img" src="~/images/gold-medal.png" />
+                                    @Html.DisplayFor(modelItem => donaters[0].Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => donaters[0].Amount) р.
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => donaters[0].Message)
+                                </td>
+                            </tr>
+
+
+                            if (donaters.Count > 1)
+                            {
+                                <tr>
+                                    <td>
+                                        <img class="medal-img" src="~/images/silver-medal.png" />
+                                        @Html.DisplayFor(modelItem => donaters[1].Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => donaters[1].Amount) р.
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => donaters[1].Message)
+                                    </td>
+                                </tr>
+                            }
+
+                            if (donaters.Count > 2)
+                            {
+                                <tr>
+                                    <td>
+                                        <img class="medal-img" src="~/images/bronze-medal.png" />
+                                        @Html.DisplayFor(modelItem => donaters[2].Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => donaters[2].Amount) р.
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => donaters[2].Message)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-box">
+                    <a class="more-button" href="/Home/Donate?fundId=@item.FundId">Помочь</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <!--<div class="row">
+            <div class="container">
+                <div class="contact-block">
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="Ваше имя (или псевдоним)" required data-error="Please enter your name">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Your Email" id="email" class="form-control"
+                                           name="name" required data-error="Please enter your email">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="custom-select d-block form-control" id="guest" required
+                                            data-error="Please select an item in the list.">
+                                        <option disabled selected>Number Of Guest*</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="custom-select d-block form-control" id="event" required
+                                            data-error="Please select an item in the list.">
+                                        <option disabled selected>I Am Attending*</option>
+                                        <option value="1">All events</option>
+                                        <option value="2">Wedding ceremony</option>
+                                        <option value="3">Reception party</option>
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="message" placeholder="Your Message" rows="8"
+                                              data-error="Write your message" required></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="submit-button text-center">
+                                    <button class="btn btn-common" id="submit" type="submit">Send Message</button>
+                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+
+    }
+</div>
+
+

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BetterHelpDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funds">
+          <Key>
+            <PropertyRef Name="FundId" />
+          </Key>
+          <Property Name="FundId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GoalAmount" Type="int" Nullable="false" />
+          <Property Name="CollectedAmount" Type="int" Nullable="false" />
+          <Property Name="Info" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LogoName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Philanthropists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Philanthr__FundI__2E1BDC42">
+          <End Role="Funds" Type="Self.Funds" Multiplicity="1" />
+          <End Role="Philanthropists" Type="Self.Philanthropists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funds">
+              <PropertyRef Name="FundId" />
+            </Principal>
+            <Dependent Role="Philanthropists">
+              <PropertyRef Name="FundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BetterHelpDbModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funds" EntityType="Self.Funds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Philanthropists" EntityType="Self.Philanthropists" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Philanthr__FundI__2E1BDC42" Association="Self.FK__Philanthr__FundI__2E1BDC42">
+            <End Role="Funds" EntitySet="Funds" />
+            <End Role="Philanthropists" EntitySet="Philanthropists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BetterHelpDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="FundId" />
+          </Key>
+          <Property Name="FundId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GoalAmount" Type="Int32" Nullable="false" />
+          <Property Name="CollectedAmount" Type="Int32" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Philanthropists" Relationship="Self.FK__Philanthr__FundI__2E1BDC42" FromRole="Funds" ToRole="Philanthropists" />
+          <Property Name="LogoName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Philanthropist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fund" Relationship="Self.FK__Philanthr__FundI__2E1BDC42" FromRole="Philanthropists" ToRole="Funds" />
+        </EntityType>
+        <Association Name="FK__Philanthr__FundI__2E1BDC42">
+          <End Role="Funds" Type="Self.Fund" Multiplicity="1" />
+          <End Role="Philanthropists" Type="Self.Philanthropist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funds">
+              <PropertyRef Name="FundId" />
+            </Principal>
+            <Dependent Role="Philanthropists">
+              <PropertyRef Name="FundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BetterHelpDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Funds" EntityType="Self.Fund" />
+          <EntitySet Name="Philanthropists" EntityType="Self.Philanthropist" />
+          <AssociationSet Name="FK__Philanthr__FundI__2E1BDC42" Association="Self.FK__Philanthr__FundI__2E1BDC42">
+            <End Role="Funds" EntitySet="Funds" />
+            <End Role="Philanthropists" EntitySet="Philanthropists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BetterHelpDbModelStoreContainer" CdmEntityContainer="BetterHelpDbEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="BetterHelpDbModel.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funds">
+            <EntityTypeMapping TypeName="BetterHelpDbModel.Fund">
+              <MappingFragment StoreEntitySet="Funds">
+                <ScalarProperty Name="LogoName" ColumnName="LogoName" />
+                <ScalarProperty Name="FundId" ColumnName="FundId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="GoalAmount" ColumnName="GoalAmount" />
+                <ScalarProperty Name="CollectedAmount" ColumnName="CollectedAmount" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Philanthropists">
+            <EntityTypeMapping TypeName="BetterHelpDbModel.Philanthropist">
+              <MappingFragment StoreEntitySet="Philanthropists">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FundId" ColumnName="FundId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

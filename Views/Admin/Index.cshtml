@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CourseWork.Models.Fund>
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="mt-5">
+    <table class="table">
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цель
+            </th>
+            <th>
+                Текущая сумма
+            </th>
+            <th>
+                Информация
+            </th>
+            <th>
+                Логотип
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollectedAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    <img src="~/images/@item.LogoName" style="width: 100px;" />
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.FundId }) 
+                    <br/>
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.FundId })
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="text-center">
+        <a href="/Admin/Create" style="text-decoration: none;">
+            <div class="btn btn-success">Добавить фонд</div>
+        </a>
+    </div>
+</div>
+
